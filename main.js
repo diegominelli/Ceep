@@ -1,6 +1,8 @@
 import BotaoConclui from "./componentes/concluiTarefa.js";
 import BotaoDeleta from "./componentes/deletaTarefa.js";
 
+let tarefas = [];
+
 const handleNovoItem = (event) => {
   event.preventDefault();
 
@@ -20,9 +22,11 @@ const handleNovoItem = (event) => {
 
   const criaTarefa = criarTarefa(dados);
 
+  tarefas.push(dados);
+
   lista.appendChild(criaTarefa);
 
-  sessionStorage.setItem("tarefas", JSON.stringify(dados));
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
   input.value = "";
 };
