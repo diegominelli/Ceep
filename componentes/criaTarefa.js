@@ -12,29 +12,36 @@ export const handleNovoItem = (event) => {
   const data = moment(calendario.value);
 
   const dataFormatada = data.format("DD/MM/YYYY");
+  const concluida = false;
 
   const dados = {
     valor,
     dataFormatada,
+    concluida,
   };
 
   const tarefasAtualizadas = [...tarefas, dados];
 
   localStorage.setItem("tarefas", JSON.stringify(tarefasAtualizadas));
 
-  input.value = "";
+  input.value = " ";
 
   carregaTarefa();
 };
 
-export const Tarefa = ({ valor, dataFormatada }) => {
+export const Tarefa = ({ valor, dataFormatada, concluida }, id) => {
   const tarefa = document.createElement("li");
-  tarefa.classList.add("task");
 
   const conteudo = `<p class="content">${dataFormatada} * ${valor}</p>`;
+  if (concluida) {
+    tarefa.classList.add("done");
+  }
+
+  tarefa.classList.add("task");
+
   tarefa.innerHTML = conteudo;
 
-  tarefa.appendChild(BotaoConclui());
+  tarefa.appendChild(BotaoConclui(carregaTarefa, id));
   tarefa.appendChild(BotaoDeleta());
 
   return tarefa;
